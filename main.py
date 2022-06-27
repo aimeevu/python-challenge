@@ -55,10 +55,18 @@ def PyBankAnalysis():
     print("Greatest Increase in Profits: " + greatestIncreaseDate + " ($" + str(greatestIncrease) + ")")
     print("Greatest Decrease in Profits: " + greatestDecreaseDate + " ($" + str(greatestDecrease) + ")")
 
-    outputFile = os.path.join("Analysis", "PyBank_Analysis.csv")
+    outputFile = os.path.join("Analysis", "PyBank_Analysis.txt")
 
-    with open(outputFile, 'w') as csvFile: 
+    f = open(outputFile, "w")
+    f.write("Financial Analysis\n")
+    f.write("----------------------------\n")
+    f.write("Total Months: " + str(totalMonths) + "\n")
+    f.write("Total: " + str(netTotal) + "\n")
+    f.write("Average Change: " + str(averageProfitLoss) + "\n")
+    f.write("Greatest Increase in Profits: " + greatestIncreaseDate + " ($" + str(greatestIncrease) + ")\n")
+    f.write("Greatest Decrease in Profits: " + greatestDecreaseDate + " ($" + str(greatestDecrease) + ")\n")
 
+    f.close()
 
 def PyPollAnalysis():
     print("This is for PyPoll")
