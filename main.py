@@ -9,9 +9,10 @@ def PyBankAnalysis():
     totalMonths = 0
     netTotal = 0
     averageProfitLoss = 0
-    totalChange = 0
     greatestIncrease = 0 #Month - previous month
     greatestDecrease = 0
+    greatestIncreaseDate = ""
+    greatestDecreaseDate = ""
 
     with open(csvPath) as csvFile:
         csvReader = csv.reader(csvFile, delimiter=',')
@@ -25,6 +26,7 @@ def PyBankAnalysis():
         totalMonths = len(date)
         change = 0
         previousMonthValue = 0
+        countForDateList = 0
 
         for x in profitLoss:
             currentMonthValue = int(x)
@@ -32,14 +34,34 @@ def PyBankAnalysis():
             change = currentMonthValue - previousMonthValue
             profitLossChange.append(change)
             previousMonthValue = currentMonthValue
-        
-        totalChange = sum(profitLossChange)
-        averageProfitLoss = totalChange / len(profitLossChange)
 
-    print(totalMonths)
-    print(netTotal)
-    print(date[0])
-    print(profitLossChange[1])
-    print(averageProfitLoss)
+            if change > greatestIncrease:
+                greatestIncrease = change
+                greatestIncreaseDate = date[countForDateList]
+
+            if change < greatestDecrease:
+                greatestDecrease = change
+                greatestDecreaseDate = date[countForDateList]
+
+            countForDateList += 1
+
+        averageProfitLoss = sum(profitLossChange) / len(profitLossChange)
+
+    print("Financial Analysis")
+    print("----------------------------")
+    print("Total Months: " + str(totalMonths))
+    print("Total: " + str(netTotal))
+    print("Average Change: " + str(averageProfitLoss))
+    print("Greatest Increase in Profits: " + greatestIncreaseDate + " ($" + str(greatestIncrease) + ")")
+    print("Greatest Decrease in Profits: " + greatestDecreaseDate + " ($" + str(greatestDecrease) + ")")
+
+    outputFile = os.path.join("Analysis", "PyBank_Analysis.csv")
+
+    with open(outputFile, 'w') as csvFile: 
+
+
+def PyPollAnalysis():
+    print("This is for PyPoll")
 
 PyBankAnalysis()
+PyPollAnalysis()
