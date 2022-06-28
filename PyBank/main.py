@@ -34,14 +34,18 @@ def PyBankAnalysis():
         change = 0
         previousMonthValue = 0
         countForDateList = 0
+        count = 0
 
         # Calculates change between entries and loads values into a new list and identifies greatest increase/decrease
         for x in profitLoss:
             currentMonthValue = int(x)
             netTotal += currentMonthValue
             change = currentMonthValue - previousMonthValue
-            profitLossChange.append(change)
+            if count > 0:
+                profitLossChange.append(change)
+
             previousMonthValue = currentMonthValue
+            count += 1
 
             # Identifies greatest increase between entries
             if change > greatestIncrease:
@@ -64,7 +68,7 @@ def PyBankAnalysis():
     print("----------------------------")
     print(f"Total Months: {str(totalMonths)}")
     print(f"Total: {str(netTotal)}")
-    print(f"Average Change: {str(averageProfitLoss)}")
+    print(f"Average Change: ${str(averageProfitLoss)}")
     print(f"Greatest Increase in Profits: {greatestIncreaseDate} (${str(greatestIncrease)})")
     print(f"Greatest Decrease in Profits: {greatestDecreaseDate} (${str(greatestDecrease)})")
 
@@ -76,7 +80,7 @@ def PyBankAnalysis():
     f.write("----------------------------\n")
     f.write("Total Months: " + str(totalMonths) + "\n")
     f.write("Total: " + str(netTotal) + "\n")
-    f.write("Average Change: " + str(averageProfitLoss) + "\n")
+    f.write("Average Change: $" + str(averageProfitLoss) + "\n")
     f.write("Greatest Increase in Profits: " + greatestIncreaseDate + " ($" + str(greatestIncrease) + ")\n")
     f.write("Greatest Decrease in Profits: " + greatestDecreaseDate + " ($" + str(greatestDecrease) + ")\n")
 
